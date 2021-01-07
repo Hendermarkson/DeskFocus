@@ -1,28 +1,43 @@
+import 'package:desk_focus/models/task.dart';
 import 'package:flutter/material.dart';
 
 class TaskItem extends StatelessWidget {
-  final String title;
-  final bool isChecked;
+  final Task task;
   final Function onChange;
   final Function onDelete;
-  TaskItem({this.title, this.isChecked, this.onChange, this.onDelete});
+  TaskItem({this.task, this.onChange, this.onDelete});
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: ListTile(
-        onTap: () => onChange(),
-        onLongPress: onDelete,
-        title: Text(
-          title,
-          style: TextStyle(
-            decoration:
-                isChecked ? TextDecoration.lineThrough : TextDecoration.none,
+      child: Dismissible(
+        key: Key(task.id),
+        direction: DismissDirection.endToStart,
+        background: Container(
+          alignment: Alignment.centerRight,
+          padding: EdgeInsets.only(right: 16.0),
+          color: Colors.red,
+          child: Icon(
+            Icons.delete,
+            color: Colors.white,
           ),
         ),
-        trailing: Checkbox(
-          value: isChecked,
-          onChanged: (value) => onChange(),
+        onDismissed: (direction) => onDelete(),
+        child: ListTile(
+          onTap: () => onChange(),
+          onLongPress: onDelete,
+          title: Text(
+            task.name,
+            style: TextStyle(
+              decoration: task.isFinished
+                  ? TextDecoration.lineThrough
+                  : TextDecoration.none,
+            ),
+          ),
+          trailing: Checkbox(
+            value: task.isFinished,
+            onChanged: (value) => onChange(),
+          ),
         ),
       ),
     );

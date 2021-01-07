@@ -15,8 +15,7 @@ class TaskList extends StatelessWidget {
       itemBuilder: (context, i) {
         final task = tasks[i];
         return TaskItem(
-          title: task.name,
-          isChecked: task.isFinished,
+          task: task,
           onChange: () => onUpdate(task),
           onDelete: () => onDelete(task),
         );
