@@ -1,4 +1,4 @@
-import 'package:desk_focus/screens/tasks_screen.dart';
+import 'screens/tasks/tasks_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(DeskFocusApp());

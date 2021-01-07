@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
 class AddTaskScreen extends StatelessWidget {
+  final Function onAdd;
+
+  AddTaskScreen({this.onAdd});
+
   @override
   Widget build(BuildContext context) {
+    String taskTitle;
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -27,16 +32,15 @@ class AddTaskScreen extends StatelessWidget {
             autofocus: true,
             textAlign: TextAlign.center,
             onChanged: (value) {
-              // TODO: Handle onchanged
-              print(value);
+              taskTitle = value;
             },
           ),
           ElevatedButton(
             onPressed: () {
-              // TODO: Hanlde onPressed (submit)
+              onAdd(taskTitle);
               Navigator.pop(context);
             },
-            child: Text("Add"),
+            child: Text("ADD"),
           )
         ],
       ),
