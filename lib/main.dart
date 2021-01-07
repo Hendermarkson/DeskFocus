@@ -1,7 +1,13 @@
 import 'screens/tasks/tasks_screen.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(DeskFocusApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  runApp(
+    DeskFocusApp(),
+  );
+}
 
 class DeskFocusApp extends StatelessWidget {
   // This widget is the root of your application.

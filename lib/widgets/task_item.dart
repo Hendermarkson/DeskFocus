@@ -11,7 +11,7 @@ class TaskItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Dismissible(
-        key: Key(task.id),
+        key: Key('task_${task.id}'),
         direction: DismissDirection.endToStart,
         background: Container(
           alignment: Alignment.centerRight,
