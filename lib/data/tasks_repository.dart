@@ -2,15 +2,15 @@ import 'package:desk_focus/data/tasks_db_dao.dart';
 import 'package:desk_focus/models/task.dart';
 
 class TasksRepository {
-  final dbDao = TasksDbDao();
+  final _dbDao = TasksDbDao();
 
-  Future addTask(Task task) => dbDao.addTask(task);
+  Future addTask(Task task) => _dbDao.addTask(task);
 
-  Future getTask(int id) => dbDao.getTask(id);
+  Future getTask(String id) => _dbDao.getTask(id);
 
-  Future getTasks() => dbDao.getTasks();
+  Future getTasks() => _dbDao.getTasks();
 
-  Future updateTask(Task task) => dbDao.updateTask(task);
+  Future updateTask(Task task) => _dbDao.updateTask(task);
 
-  Future deleteTask(int id) => dbDao.deleteTask(id);
+  Future deleteTask(String id) => _dbDao.deleteTask(id);
 }

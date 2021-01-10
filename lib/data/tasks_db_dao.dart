@@ -4,33 +4,31 @@ import 'package:desk_focus/models/task.dart';
 class TasksDbDao {
   final dbProvider = DBProvider.provider;
 
-  addTask(Task task) async {
+  Future<int> addTask(Task task) async {
     final db = await dbProvider.database;
-    var res = await db.insert(taskTable, task.toJson());
-    return res;
+    return await db.insert(taskTable, task.toJson());
   }
 
-  getTask(int id) async {
+  Future<Task> getTask(String id) async {
     final db = await dbProvider.database;
     var res = await db.query(taskTable, where: 'id = ?', whereArgs: [id]);
     return res.isNotEmpty ? Task.fromJson(res.first) : Null;
   }
 
-  getTasks() async {
+  Future<List<Task>> getTasks() async {
     final db = await dbProvider.database;
     var res = await db.query(taskTable);
     return res.isNotEmpty ? res.map((t) => Task.fromJson(t)).toList() : [];
   }
 
-  updateTask(Task task) async {
+  Future<int> updateTask(Task task) async {
     final db = await dbProvider.database;
-    var res = await db.update(taskTable, task.toJson(),
+    return await db.update(taskTable, task.toJson(),
         where: 'id = ?', whereArgs: [task.id]);
-    return res;
   }
 
-  deleteTask(int id) async {
+  Future<int> deleteTask(String id) async {
     final db = await dbProvider.database;
-    db.delete(taskTable, where: 'id = ?', whereArgs: [id]);
+    return db.delete(taskTable, where: 'id = ?', whereArgs: [id]);
   }
 }

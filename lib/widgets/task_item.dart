@@ -27,7 +27,7 @@ class TaskItem extends StatelessWidget {
           onTap: () => onChange(),
           onLongPress: onDelete,
           title: Text(
-            task.name,
+            task.name ?? task.id,
             style: TextStyle(
               decoration: task.isFinished
                   ? TextDecoration.lineThrough
