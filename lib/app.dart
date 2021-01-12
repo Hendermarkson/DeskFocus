@@ -1,3 +1,4 @@
+import 'package:desk_focus/app_theme.dart';
 import 'package:desk_focus/blocs/tasks/tasks_bloc.dart';
 import 'package:desk_focus/blocs/tasks/tasks_event.dart';
 import 'package:desk_focus/data/tasks_repository.dart';
@@ -10,10 +11,11 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'DeskFocus',
-      theme: ThemeData.light(),
+      theme: AppTheme(lightModeEnabled: true).themeData,
       home: BlocProvider(
         create: (BuildContext context) =>
-            TasksBloc(repository: TasksRepository())..add(TasksLoaded()),
+            TasksBloc(repository: TasksRepository())
+              ..add(LoadTasks()), // The add ensure the initial load is done.
         child: TasksScreen(),
       ),
     );

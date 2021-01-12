@@ -10,6 +10,7 @@ class TaskItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      margin: EdgeInsets.all(8.0),
       child: Dismissible(
         key: Key('task_${task.id}'),
         direction: DismissDirection.endToStart,
@@ -24,6 +25,12 @@ class TaskItem extends StatelessWidget {
         ),
         onDismissed: (direction) => onDelete(),
         child: ListTile(
+          contentPadding: EdgeInsets.only(
+            left: 16.0,
+            right: 16.0,
+            top: 4.0,
+            bottom: 4.0,
+          ),
           onTap: () => onChange(),
           onLongPress: onDelete,
           title: Text(

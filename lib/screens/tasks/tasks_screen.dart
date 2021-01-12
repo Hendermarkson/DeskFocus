@@ -48,15 +48,18 @@ class TasksScreen extends StatelessWidget {
                   child: Text('No tasks created yet'),
                 );
               }
-              return TaskList(
-                tasks: state.tasks,
-                onUpdate: (Task task) {
-                  BlocProvider.of<TasksBloc>(context).add(
-                      TaskUpdated(task.copyWith(isFinished: !task.isFinished)));
-                },
-                onDelete: (Task task) {
-                  BlocProvider.of<TasksBloc>(context).add(TaskDeleted(task));
-                },
+              return Container(
+                padding: EdgeInsets.only(top: 12.0),
+                child: TaskList(
+                  tasks: state.tasks,
+                  onUpdate: (Task task) {
+                    BlocProvider.of<TasksBloc>(context).add(TaskUpdated(
+                        task.copyWith(isFinished: !task.isFinished)));
+                  },
+                  onDelete: (Task task) {
+                    BlocProvider.of<TasksBloc>(context).add(TaskDeleted(task));
+                  },
+                ),
               );
             }
             return ErrorIndicator(text: 'Failed to load tasks');
