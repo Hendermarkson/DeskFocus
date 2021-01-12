@@ -1,6 +1,8 @@
 import 'package:desk_focus/blocs/blocs.dart';
 import 'package:desk_focus/models/task.dart';
 import 'package:desk_focus/screens/tasks/add_task_screen.dart';
+import 'package:desk_focus/widgets/error_indicator.dart';
+import 'package:desk_focus/widgets/loading_indicator.dart';
 import 'package:desk_focus/widgets/tasks_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,9 +40,14 @@ class TasksScreen extends StatelessWidget {
         body: BlocBuilder<TasksBloc, TasksState>(
           builder: (context, state) {
             if (state is TasksLoading) {
-              return Text("Load in progress");
+              return LoadingIndicator();
             }
             if (state is TasksLoadSuccess) {
+              if (state.tasks.isEmpty) {
+                return Center(
+                  child: Text('No tasks created yet'),
+                );
+              }
               return TaskList(
                 tasks: state.tasks,
                 onUpdate: (Task task) {
@@ -52,7 +59,7 @@ class TasksScreen extends StatelessWidget {
                 },
               );
             }
-            return Text("Failed to load tasks");
+            return ErrorIndicator(text: 'Failed to load tasks');
           },
         ));
   }

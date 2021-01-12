@@ -14,7 +14,7 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
   Stream<TasksState> mapEventToState(
     TasksEvent event,
   ) async* {
-    if (event is TasksLoaded) {
+    if (event is LoadTasks) {
       yield* _mapTasksLoadedToState();
     } else if (event is TaskAdded) {
       yield* _mapTaskAddedToState(event);
