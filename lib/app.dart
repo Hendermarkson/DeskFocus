@@ -11,7 +11,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'DeskFocus',
-      theme: AppTheme(lightModeEnabled: true).themeData,
+      theme: AppTheme(lightModeEnabled: false).themeData,
       home: BlocProvider(
         create: (BuildContext context) =>
             TasksBloc(repository: TasksRepository())

@@ -35,7 +35,7 @@ class Task extends Equatable {
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': name,
-        'isFinished': isFinished,
+        'isFinished': isFinished ? 1 : 0,
       };
 
   @override
