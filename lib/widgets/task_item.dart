@@ -10,6 +10,7 @@ class TaskItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 3.0,
       margin: EdgeInsets.all(8.0),
       child: Dismissible(
         key: Key('task_${task.id}'),

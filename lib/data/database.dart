@@ -27,7 +27,7 @@ class DBProvider {
       onOpen: (db) {},
       onCreate: (Database db, int version) async {
         await db.execute(
-            'CREATE TABLE $taskTable(id TEXT PRIMARY KEY, name TEXT, isFinished INTEGER)');
+            'CREATE TABLE $taskTable(id TEXT PRIMARY KEY, name TEXT, isFinished INTEGER, finishedDateTime TEXT)');
       },
     );
   }
