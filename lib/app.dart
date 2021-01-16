@@ -1,22 +1,21 @@
 import 'package:desk_focus/app_theme.dart';
-import 'package:desk_focus/blocs/tasks/tasks_bloc.dart';
-import 'package:desk_focus/blocs/tasks/tasks_event.dart';
-import 'package:desk_focus/data/tasks_repository.dart';
+import 'package:desk_focus/data/repositories/tasks_repository.dart';
 import 'package:desk_focus/screens/tasks/tasks_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
+
+import 'models/tasks_data.dart';
 
 class App extends StatelessWidget {
+  final _repository = TasksRepository();
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'DeskFocus',
-      theme: AppTheme(lightModeEnabled: false).themeData,
-      home: BlocProvider(
-        create: (BuildContext context) =>
-            TasksBloc(repository: TasksRepository())
-              ..add(LoadTasks()), // The add ensure the initial load is done.
-        child: TasksScreen(),
+    return ChangeNotifierProvider(
+      create: (BuildContext context) => new TasksData(repository: _repository),
+      child: MaterialApp(
+        title: 'DeskFocus',
+        theme: AppTheme(lightModeEnabled: false).themeData,
+        home: TasksScreen(),
       ),
     );
   }

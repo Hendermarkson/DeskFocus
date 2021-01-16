@@ -1,4 +1,4 @@
-import 'package:desk_focus/data/database.dart';
+import 'package:desk_focus/data/database/database.dart';
 import 'package:desk_focus/models/task.dart';
 
 class TasksDbDao {

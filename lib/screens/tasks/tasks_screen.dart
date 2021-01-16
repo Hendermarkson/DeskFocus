@@ -1,11 +1,13 @@
-import 'package:desk_focus/blocs/blocs.dart';
+import 'package:desk_focus/models/loading_state.dart';
+import 'package:desk_focus/models/loading_state.dart';
+import 'package:desk_focus/models/models.dart';
 import 'package:desk_focus/models/task.dart';
 import 'package:desk_focus/screens/tasks/add_task_screen.dart';
 import 'package:desk_focus/widgets/error_indicator.dart';
 import 'package:desk_focus/widgets/loading_indicator.dart';
 import 'package:desk_focus/widgets/tasks_list.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 class TasksScreen extends StatelessWidget {
   Widget build(BuildContext context) {
@@ -24,8 +26,8 @@ class TasksScreen extends StatelessWidget {
                     child: AddTaskScreen(
                       onAdd: (String name) {
                         if (name != null && name.isNotEmpty) {
-                          BlocProvider.of<TasksBloc>(context, listen: false)
-                              .add(TaskAdded(new Task(name: name)));
+                          Provider.of<TasksData>(context, listen: false)
+                              .add(new Task(name: name));
                         }
                       },
                     ),
@@ -37,13 +39,13 @@ class TasksScreen extends StatelessWidget {
           ),
         ),
         appBar: AppBar(),
-        body: BlocBuilder<TasksBloc, TasksState>(
-          builder: (context, state) {
-            if (state is TasksLoading) {
+        body: Consumer<TasksData>(
+          builder: (context, data, child) {
+            if (data.state == LoadingState.Loading) {
               return LoadingIndicator();
             }
-            if (state is TasksLoadSuccess) {
-              if (state.tasks.isEmpty) {
+            if (data.state == LoadingState.Success) {
+              if (data.tasks.isEmpty) {
                 return Center(
                   child: Text('No tasks created yet'),
                 );
@@ -51,13 +53,14 @@ class TasksScreen extends StatelessWidget {
               return Container(
                 padding: EdgeInsets.only(top: 12.0),
                 child: TaskList(
-                  tasks: state.tasks,
+                  tasks: data.tasks,
                   onUpdate: (Task task) {
-                    BlocProvider.of<TasksBloc>(context).add(TaskUpdated(
-                        task.copyWith(isFinished: !task.isFinished)));
+                    Provider.of<TasksData>(context, listen: false)
+                        .update(task.copyWith(isFinished: !task.isFinished));
                   },
                   onDelete: (Task task) {
-                    BlocProvider.of<TasksBloc>(context).add(TaskDeleted(task));
+                    Provider.of<TasksData>(context, listen: false)
+                        .delete(task.id);
                   },
                 ),
               );
