@@ -16,7 +16,7 @@ class TaskList extends StatelessWidget {
         final task = tasks[i];
         return TaskItem(
           task: task,
-          onChange: () => onUpdate(task),
+          toggleState: () => onUpdate(task),
           onDelete: () => onDelete(task),
         );
       },

@@ -1,5 +1,4 @@
 import 'package:desk_focus/models/loading_state.dart';
-import 'package:desk_focus/models/loading_state.dart';
 import 'package:desk_focus/models/models.dart';
 import 'package:desk_focus/models/task.dart';
 import 'package:desk_focus/screens/tasks/add_task_screen.dart';
@@ -9,7 +8,20 @@ import 'package:desk_focus/widgets/tasks_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class TasksScreen extends StatelessWidget {
+class TasksScreen extends StatefulWidget {
+  @override
+  _TasksScreenState createState() => _TasksScreenState();
+}
+
+class _TasksScreenState extends State<TasksScreen> {
+  int _selectedTabIndex = 0;
+
+  void _changeTabIndex(int index) {
+    setState(() {
+      _selectedTabIndex = index;
+    });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
         floatingActionButton: Builder(
@@ -39,6 +51,23 @@ class TasksScreen extends StatelessWidget {
           ),
         ),
         appBar: AppBar(),
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          selectedItemColor: Theme.of(context).colorScheme.onSurface,
+          unselectedItemColor: Theme.of(context).colorScheme.background,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.list),
+              label: 'Tasks',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.check_box),
+              label: 'Completed',
+            ),
+          ],
+          currentIndex: _selectedTabIndex,
+          onTap: _changeTabIndex,
+        ),
         body: Consumer<TasksData>(
           builder: (context, data, child) {
             if (data.state == LoadingState.Loading) {
@@ -53,7 +82,9 @@ class TasksScreen extends StatelessWidget {
               return Container(
                 padding: EdgeInsets.only(top: 12.0),
                 child: TaskList(
-                  tasks: data.tasks,
+                  tasks: data.tasks
+                      .where((x) => x.isFinished == (_selectedTabIndex == 1))
+                      .toList(),
                   onUpdate: (Task task) {
                     Provider.of<TasksData>(context, listen: false)
                         .update(task.copyWith(isFinished: !task.isFinished));
