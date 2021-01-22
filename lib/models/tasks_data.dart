@@ -1,32 +1,60 @@
 import 'dart:collection';
 
+import 'package:desk_focus/data/repositories/task_category_repository.dart';
 import 'package:desk_focus/data/repositories/tasks_repository.dart';
-import 'package:desk_focus/models/loading_state.dart';
+import 'package:desk_focus/enums/loading_state.dart';
 import 'package:flutter/material.dart';
 import 'base_data.dart';
-import 'task.dart';
+import 'entities/task.dart';
+import 'entities/task_category.dart';
 
 class TasksData extends ChangeNotifier implements BaseData {
   List<Task> _tasks = [];
+  List<TaskCategory> _categories = [];
+
+  final TasksRepository tasksRepo;
+  final TaskCategoryRepository categoryRepo;
+
+  UnmodifiableListView<TaskCategory> get categories =>
+      UnmodifiableListView(_categories);
+
+  UnmodifiableListView<Task> get tasks {
+    var tasksWithCategories = _tasks;
+    if (_categories.isNotEmpty) {
+      tasksWithCategories = _tasks.map((t) {
+        var category = _categories.firstWhere((x) => x.id == t.categoryId,
+            orElse: () => null);
+        return t.copyWith(category: category);
+      }).toList();
+    }
+
+    return UnmodifiableListView(tasksWithCategories);
+  }
 
   @override
   LoadingState state;
 
-  final TasksRepository repository;
+  TasksData({@required this.tasksRepo, @required this.categoryRepo}) {
+    _initData();
+  }
 
-  UnmodifiableListView<Task> get tasks => UnmodifiableListView(_tasks);
-
-  int get count => _tasks.length;
-
-  TasksData({@required this.repository}) {
+  _initData() async {
     state = LoadingState.Loading;
-    _refreshTasks();
+    try {
+      _tasks = await tasksRepo.getTasks();
+      _categories = await categoryRepo.getTaskCategories();
+      state = LoadingState.Success;
+    } catch (e) {
+      print(e);
+      state = LoadingState.Error;
+    }
+    notifyListeners();
   }
 
   _refreshTasks() async {
     state = LoadingState.Loading;
     try {
-      _tasks = await repository.getTasks();
+      _tasks = await tasksRepo.getTasks();
       state = LoadingState.Success;
     } catch (e) {
       print(e);
@@ -36,17 +64,17 @@ class TasksData extends ChangeNotifier implements BaseData {
   }
 
   add(Task task) {
-    repository.addTask(task);
+    tasksRepo.addTask(task);
     _refreshTasks();
   }
 
   update(Task task) {
-    repository.updateTask(task);
+    tasksRepo.updateTask(task);
     _refreshTasks();
   }
 
   delete(String id) {
-    repository.deleteTask(id);
+    tasksRepo.deleteTask(id);
     _refreshTasks();
   }
 }

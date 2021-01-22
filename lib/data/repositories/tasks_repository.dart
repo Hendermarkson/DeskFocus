@@ -1,5 +1,5 @@
 import 'package:desk_focus/data/database/tasks_db_dao.dart';
-import 'package:desk_focus/models/task.dart';
+import 'package:desk_focus/models/entities/task.dart';
 
 class TasksRepository {
   final _dbDao = TasksDbDao();

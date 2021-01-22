@@ -1,13 +1,28 @@
+import 'package:desk_focus/models/entities/task.dart';
+import 'package:desk_focus/models/tasks_data.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class AddTaskScreen extends StatelessWidget {
+class AddTaskScreen extends StatefulWidget {
   final Function onAdd;
 
   AddTaskScreen({this.onAdd});
 
   @override
+  _AddTaskScreenState createState() => _AddTaskScreenState();
+}
+
+class _AddTaskScreenState extends State<AddTaskScreen> {
+  String taskName;
+  int taskCategoryId;
+
+  @override
   Widget build(BuildContext context) {
-    String taskTitle;
+    final categories =
+        Provider.of<TasksData>(context, listen: false).categories;
+    final categorySelectItems = categories
+        .map((e) => DropdownMenuItem(value: e.id, child: Text(e.name)))
+        .toList();
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
@@ -31,12 +46,25 @@ class AddTaskScreen extends StatelessWidget {
             autofocus: true,
             textAlign: TextAlign.center,
             onChanged: (value) {
-              taskTitle = value;
+              taskName = value;
+            },
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          DropdownButton(
+            value: taskCategoryId,
+            items: categorySelectItems,
+            onChanged: (value) {
+              taskCategoryId = value;
             },
           ),
           ElevatedButton(
             onPressed: () {
-              onAdd(taskTitle);
+              widget.onAdd(Task(
+                categoryId: taskCategoryId,
+                name: taskName ?? '-',
+              ));
               Navigator.pop(context);
             },
             child: Text("ADD"),

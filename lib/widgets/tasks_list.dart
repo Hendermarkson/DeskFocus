@@ -1,4 +1,4 @@
-import 'package:desk_focus/models/task.dart';
+import 'package:desk_focus/models/entities/task.dart';
 import 'package:desk_focus/widgets/task_item.dart';
 import 'package:flutter/material.dart';
 

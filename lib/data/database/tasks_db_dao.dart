@@ -1,5 +1,5 @@
 import 'package:desk_focus/data/database/database.dart';
-import 'package:desk_focus/models/task.dart';
+import 'package:desk_focus/models/entities/task.dart';
 
 class TasksDbDao {
   final dbProvider = DBProvider.provider;

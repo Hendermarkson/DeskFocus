@@ -10,7 +10,9 @@ class ErrorIndicator extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Icon(Icons.error),
+        Icon(
+          Icons.error,
+        ),
         Text(this.text),
       ],
     );

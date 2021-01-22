@@ -1,6 +1,6 @@
-import 'package:desk_focus/models/loading_state.dart';
-import 'package:desk_focus/models/models.dart';
-import 'package:desk_focus/models/task.dart';
+import 'package:desk_focus/enums/loading_state.dart';
+import 'package:desk_focus/models/entities/task.dart';
+import 'package:desk_focus/models/tasks_data.dart';
 import 'package:desk_focus/screens/tasks/add_task_screen.dart';
 import 'package:desk_focus/widgets/error_indicator.dart';
 import 'package:desk_focus/widgets/loading_indicator.dart';
@@ -36,11 +36,9 @@ class _TasksScreenState extends State<TasksScreen> {
                       bottom: MediaQuery.of(context).viewInsets.bottom,
                     ),
                     child: AddTaskScreen(
-                      onAdd: (String name) {
-                        if (name != null && name.isNotEmpty) {
-                          Provider.of<TasksData>(context, listen: false)
-                              .add(new Task(name: name));
-                        }
+                      onAdd: (task) {
+                        Provider.of<TasksData>(context, listen: false)
+                            .add(task);
                       },
                     ),
                   ),
@@ -96,7 +94,7 @@ class _TasksScreenState extends State<TasksScreen> {
                 ),
               );
             }
-            return ErrorIndicator(text: 'Failed to load tasks');
+            return Center(child: ErrorIndicator(text: 'Failed to load tasks'));
           },
         ));
   }
