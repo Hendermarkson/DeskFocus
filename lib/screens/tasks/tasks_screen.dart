@@ -48,7 +48,9 @@ class _TasksScreenState extends State<TasksScreen> {
             },
           ),
         ),
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: Text('Tasks'),
+        ),
         bottomNavigationBar: BottomNavigationBar(
           backgroundColor: Theme.of(context).colorScheme.surface,
           selectedItemColor: Theme.of(context).colorScheme.onSurface,

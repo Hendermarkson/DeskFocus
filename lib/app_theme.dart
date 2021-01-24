@@ -16,7 +16,7 @@ class AppTheme {
     ColorScheme colorScheme = ColorScheme.dark(
       brightness: Brightness.light,
       primary: Color(0xFF2B2D42),
-      primaryVariant: Color(0xFF2021),
+      primaryVariant: Color(0xFF202231),
       secondary: Color(0xFFF34213),
       secondaryVariant: Color(0xFFB9300A),
       background: Color(0xFF202231),

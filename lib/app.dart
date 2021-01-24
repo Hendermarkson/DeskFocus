@@ -1,7 +1,6 @@
 import 'package:desk_focus/app_theme.dart';
 import 'package:desk_focus/data/repositories/task_category_repository.dart';
 import 'package:desk_focus/data/repositories/tasks_repository.dart';
-import 'package:desk_focus/models/task_categories_data.dart';
 import 'package:desk_focus/screens/tasks/tasks_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

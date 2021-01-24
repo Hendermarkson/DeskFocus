@@ -1,6 +1,6 @@
 import 'package:desk_focus/models/entities/task.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_slidable/flutter_slidable.dart';
 import '../constants.dart';
 
 class TaskItem extends StatelessWidget {
@@ -28,33 +28,24 @@ class TaskItem extends StatelessWidget {
     return Card(
       elevation: 3.0,
       margin: EdgeInsets.all(8.0),
-      child: Dismissible(
+      child: Slidable(
         key: Key('task_${task.id}'),
-        background: Container(
-          alignment: Alignment.centerLeft,
-          padding: EdgeInsets.only(left: 16.0),
-          color: task.isFinished ? Colors.blue : Colors.green,
-          child: Icon(
-            task.isFinished ? Icons.undo : Icons.check,
-            color: Colors.white,
-          ),
-        ),
-        secondaryBackground: Container(
-          alignment: Alignment.centerRight,
-          padding: EdgeInsets.only(right: 16.0),
-          color: Colors.red,
-          child: Icon(
-            Icons.delete,
-            color: Colors.white,
-          ),
-        ),
-        onDismissed: (direction) {
-          if (direction == DismissDirection.startToEnd) {
-            toggleState();
-          } else {
-            onDelete();
-          }
-        },
+        actionPane: SlidableDrawerActionPane(),
+        actionExtentRatio: 0.25,
+        actions: [
+          IconSlideAction(
+            color: task.isFinished ? Colors.blue : Colors.green,
+            onTap: toggleState,
+            icon: task.isFinished ? Icons.undo : Icons.check,
+          )
+        ],
+        secondaryActions: [
+          IconSlideAction(
+            color: Colors.red,
+            onTap: onDelete,
+            icon: Icons.delete,
+          )
+        ],
         child: ListTile(
             contentPadding: EdgeInsets.only(
               left: 16.0,
