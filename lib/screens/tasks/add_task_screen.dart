@@ -53,7 +53,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             height: 20,
           ),
           DropdownButton(
-            value: taskCategoryId,
+            value: taskCategoryId ?? categorySelectItems.first.value,
             items: categorySelectItems,
             onChanged: (value) {
               taskCategoryId = value;

@@ -4,6 +4,7 @@ import 'package:desk_focus/models/tasks_data.dart';
 import 'package:desk_focus/screens/tasks/add_task_screen.dart';
 import 'package:desk_focus/widgets/error_indicator.dart';
 import 'package:desk_focus/widgets/loading_indicator.dart';
+import 'package:desk_focus/widgets/task_summary.dart';
 import 'package:desk_focus/widgets/tasks_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -80,21 +81,30 @@ class _TasksScreenState extends State<TasksScreen> {
                 );
               }
               return Container(
-                padding: EdgeInsets.only(top: 12.0),
-                child: TaskList(
-                  tasks: data.tasks
-                      .where((x) => x.isFinished == (_selectedTabIndex == 1))
-                      .toList(),
-                  onUpdate: (Task task) {
-                    Provider.of<TasksData>(context, listen: false)
-                        .update(task.copyWith(isFinished: !task.isFinished));
-                  },
-                  onDelete: (Task task) {
-                    Provider.of<TasksData>(context, listen: false)
-                        .delete(task.id);
-                  },
-                ),
-              );
+                  padding: EdgeInsets.only(top: 12.0),
+                  child: Column(
+                    children: [
+                      TaskSummary(
+                        title: 'Tasks',
+                        tasksDone: data.tasks.where((x) => x.isFinished).length,
+                        tasksTotal: data.tasks.length,
+                      ),
+                      TaskList(
+                        tasks: data.tasks
+                            .where(
+                                (x) => x.isFinished == (_selectedTabIndex == 1))
+                            .toList(),
+                        onUpdate: (Task task) {
+                          Provider.of<TasksData>(context, listen: false).update(
+                              task.copyWith(isFinished: !task.isFinished));
+                        },
+                        onDelete: (Task task) {
+                          Provider.of<TasksData>(context, listen: false)
+                              .delete(task.id);
+                        },
+                      )
+                    ],
+                  ));
             }
             return Center(child: ErrorIndicator(text: 'Failed to load tasks'));
           },
