@@ -1,3 +1,4 @@
+import 'package:desk_focus/widgets/animated_progressbar.dart';
 import 'package:flutter/material.dart';
 
 class TaskSummary extends StatelessWidget {
@@ -13,9 +14,7 @@ class TaskSummary extends StatelessWidget {
     this.tasksTotal,
   });
 
-  getProgress() {
-    return (tasksDone ?? 0) / (tasksTotal ?? 1);
-  }
+  getProgress() => (tasksDone ?? 0) / (tasksTotal ?? 1);
 
   @override
   Widget build(BuildContext context) {
@@ -74,8 +73,8 @@ class TaskSummary extends StatelessWidget {
               ],
             ),
           ),
-          LinearProgressIndicator(
-            value: getProgress(),
+          AnimatedProgressBar(
+            progress: getProgress(),
           )
         ],
       ),
