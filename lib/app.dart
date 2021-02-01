@@ -25,7 +25,7 @@ class App extends StatelessWidget {
         title: 'DeskFocus',
         theme: AppTheme(lightModeEnabled: false).themeData,
         initialRoute: 'home',
-        routes: routes,
+        routes: Routes.config,
       ),
     );
   }

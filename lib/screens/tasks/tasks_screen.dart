@@ -2,6 +2,7 @@ import 'package:desk_focus/enums/loading_state.dart';
 import 'package:desk_focus/models/entities/task.dart';
 import 'package:desk_focus/models/tasks_data.dart';
 import 'package:desk_focus/screens/tasks/add_task_screen.dart';
+import 'package:desk_focus/widgets/app_drawer.dart';
 import 'package:desk_focus/widgets/error_indicator.dart';
 import 'package:desk_focus/widgets/loading_indicator.dart';
 import 'package:desk_focus/widgets/task_summary.dart';
@@ -50,8 +51,11 @@ class _TasksScreenState extends State<TasksScreen> {
           ),
         ),
         appBar: AppBar(
-          title: Text('Tasks'),
+          title: Center(
+            child: Text('Tasks'),
+          ),
         ),
+        drawer: AppDrawer(),
         bottomNavigationBar: BottomNavigationBar(
           backgroundColor: Theme.of(context).colorScheme.surface,
           selectedItemColor: Theme.of(context).colorScheme.onSurface,
