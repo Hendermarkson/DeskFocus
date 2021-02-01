@@ -1,7 +1,7 @@
 import 'package:desk_focus/app_theme.dart';
 import 'package:desk_focus/data/repositories/task_category_repository.dart';
 import 'package:desk_focus/data/repositories/tasks_repository.dart';
-import 'package:desk_focus/screens/tasks/tasks_screen.dart';
+import 'package:desk_focus/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,7 +24,8 @@ class App extends StatelessWidget {
       child: MaterialApp(
         title: 'DeskFocus',
         theme: AppTheme(lightModeEnabled: false).themeData,
-        home: TasksScreen(),
+        initialRoute: 'home',
+        routes: routes,
       ),
     );
   }
