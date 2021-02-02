@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  bool lightModeEnabled;
+  bool darkMode;
 
-  AppTheme({this.lightModeEnabled = false});
+  AppTheme({this.darkMode = false});
 
   ThemeData get themeData {
-    return lightModeEnabled ? _lightTheme : _darkTheme;
+    return darkMode ? _darkTheme : _lightTheme;
   }
 
   ThemeData get _darkTheme {
