@@ -57,9 +57,6 @@ class _TasksScreenState extends State<TasksScreen> {
         ),
         drawer: AppDrawer(),
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Theme.of(context).colorScheme.surface,
-          selectedItemColor: Theme.of(context).colorScheme.onSurface,
-          unselectedItemColor: Theme.of(context).colorScheme.background,
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.list),

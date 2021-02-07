@@ -1,4 +1,13 @@
+import 'package:desk_focus/utils/color-creator.dart';
 import 'package:flutter/material.dart';
+
+final primarySwatch = createMaterialColor(
+  Color(0xFFEDF2F4),
+);
+final primarySwatchDark = createMaterialColor(
+  Color(0xFF2B2D42),
+);
+final accentColor = Color(0xFFF34213);
 
 class AppTheme {
   bool darkMode;
@@ -11,46 +20,53 @@ class AppTheme {
 
   ThemeData get _darkTheme {
     TextTheme textTheme = ThemeData.dark().textTheme;
-    // Should be brightness dark;
-    // TODO: Currently an open issue: https://github.com/flutter/flutter/issues/48195
-    ColorScheme colorScheme = ColorScheme.dark(
-      brightness: Brightness.light,
-      primary: Color(0xFF2B2D42),
-      primaryVariant: Color(0xFF202231),
-      secondary: Color(0xFFF34213),
-      secondaryVariant: Color(0xFFB9300A),
-      background: Color(0xFF202231),
-      surface: Color(0xFF2B2D42),
-      onBackground: Color(0xFFEDF2F4),
-      onSurface: Color(0xFFEDF2F4),
-      onError: Colors.white,
-      onPrimary: Color(0xFFEDF2F4),
-      onSecondary: Color(0xFFEDF2F4),
-      error: Colors.red.shade400,
+
+    var colorScheme = ColorScheme.fromSwatch(
+      primarySwatch: primarySwatchDark,
+      primaryColorDark: primarySwatchDark.shade700,
+      accentColor: accentColor,
+      cardColor: primarySwatchDark,
+      backgroundColor: primarySwatchDark.shade700,
+      errorColor: Colors.red.shade400,
+      brightness: Brightness.dark,
     );
 
-    return ThemeData.from(textTheme: textTheme, colorScheme: colorScheme);
+    return ThemeData.from(
+      colorScheme: colorScheme,
+      textTheme: textTheme,
+    ).copyWith(
+        toggleableActiveColor: accentColor,
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          backgroundColor: primarySwatchDark,
+          selectedItemColor: accentColor,
+          unselectedItemColor: primarySwatchDark.shade700,
+        ));
   }
 
   ThemeData get _lightTheme {
     TextTheme textTheme = ThemeData.light().textTheme;
-    ColorScheme colorScheme = ColorScheme.light(
+
+    var colorScheme = ColorScheme.fromSwatch(
+      primarySwatch: primarySwatch,
+      primaryColorDark: primarySwatch.shade700,
+      accentColor: accentColor,
+      cardColor: primarySwatch,
+      backgroundColor: primarySwatch.shade700,
+      errorColor: Colors.red.shade400,
       brightness: Brightness.light,
-      primary: Color(0xFFEDF2F4),
-      primaryVariant: Color(0xFFD9E4E8),
-      secondary: Color(0xFFF34213),
-      secondaryVariant: Color(0xFFB9300A),
-      background: Color(0xFFD9E4E8),
-      surface: Color(0xFFEDF2F4),
-      onBackground: Color(0xFF2B2D42),
-      onSurface: Color(0xFF2B2D42),
-      onError: Colors.white,
-      onPrimary: Color(0xFF2B2D42),
-      onSecondary: Color(0xFFEDF2F4),
-      error: Colors.red.shade400,
     );
 
-    return ThemeData.from(textTheme: textTheme, colorScheme: colorScheme);
+    return ThemeData.from(
+      colorScheme: colorScheme,
+      textTheme: textTheme,
+    ).copyWith(
+      toggleableActiveColor: accentColor,
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: primarySwatch,
+        selectedItemColor: accentColor,
+        unselectedItemColor: primarySwatch.shade700,
+      ),
+    );
   }
 
   static const Color colorPrimaryBackground = Color(0xff242423);
