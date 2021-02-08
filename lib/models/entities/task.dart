@@ -1,12 +1,6 @@
-import 'dart:convert';
-
 import 'package:desk_focus/models/entities/task_category.dart';
 import 'package:equatable/equatable.dart';
 import 'package:uuid/uuid.dart';
-
-Task taskFromJson(String str) => Task.fromJson(json.decode(str));
-
-String taskToJson(Task data) => json.encode(data.toJson());
 
 class Task extends Equatable {
   final String id;

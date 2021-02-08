@@ -1,4 +1,4 @@
-import 'package:desk_focus/models/settings_data.dart';
+import 'package:desk_focus/services/settings_data_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -7,7 +7,7 @@ import '../routes.dart';
 class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer<SettingsData>(
+    return Consumer<SettingsDataService>(
       builder: (_, settings, child) => Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -38,7 +38,7 @@ class DrawerItem extends StatelessWidget {
   final IconData icon;
   final String title;
   final String route;
-  final SettingsData settings;
+  final SettingsDataService settings;
   const DrawerItem({
     Key key,
     this.icon,

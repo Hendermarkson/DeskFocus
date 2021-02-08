@@ -1,6 +1,6 @@
 import 'package:desk_focus/enums/loading_state.dart';
 import 'package:desk_focus/models/entities/task.dart';
-import 'package:desk_focus/models/tasks_data.dart';
+import 'package:desk_focus/services/tasks_data_service.dart';
 import 'package:desk_focus/screens/tasks/add_task_screen.dart';
 import 'package:desk_focus/widgets/app_drawer.dart';
 import 'package:desk_focus/widgets/error_indicator.dart';
@@ -39,7 +39,7 @@ class _TasksScreenState extends State<TasksScreen> {
                     ),
                     child: AddTaskScreen(
                       onAdd: (task) {
-                        Provider.of<TasksData>(context, listen: false)
+                        Provider.of<TasksDataService>(context, listen: false)
                             .add(task);
                       },
                     ),
@@ -70,7 +70,7 @@ class _TasksScreenState extends State<TasksScreen> {
           currentIndex: _selectedTabIndex,
           onTap: _changeTabIndex,
         ),
-        body: Consumer<TasksData>(
+        body: Consumer<TasksDataService>(
           builder: (context, data, child) {
             if (data.state == LoadingState.Loading) {
               return LoadingIndicator();
@@ -96,11 +96,12 @@ class _TasksScreenState extends State<TasksScreen> {
                                 (x) => x.isFinished == (_selectedTabIndex == 1))
                             .toList(),
                         onUpdate: (Task task) {
-                          Provider.of<TasksData>(context, listen: false).update(
-                              task.copyWith(isFinished: !task.isFinished));
+                          Provider.of<TasksDataService>(context, listen: false)
+                              .update(
+                                  task.copyWith(isFinished: !task.isFinished));
                         },
                         onDelete: (Task task) {
-                          Provider.of<TasksData>(context, listen: false)
+                          Provider.of<TasksDataService>(context, listen: false)
                               .delete(task.id);
                         },
                       )

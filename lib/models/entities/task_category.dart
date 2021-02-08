@@ -1,11 +1,4 @@
-import 'dart:convert';
-
 import 'package:equatable/equatable.dart';
-
-TaskCategory taskFromJson(String str) =>
-    TaskCategory.fromJson(json.decode(str));
-
-String taskToJson(TaskCategory data) => json.encode(data.toJson());
 
 class TaskCategory extends Equatable {
   final int id;

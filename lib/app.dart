@@ -1,12 +1,12 @@
 import 'package:desk_focus/app_theme.dart';
 import 'package:desk_focus/data/repositories/task_category_repository.dart';
 import 'package:desk_focus/data/repositories/tasks_repository.dart';
-import 'package:desk_focus/models/settings_data.dart';
+import 'package:desk_focus/services/settings_data_service.dart';
 import 'package:desk_focus/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'models/tasks_data.dart';
+import 'services/tasks_data_service.dart';
 
 class App extends StatelessWidget {
   final _repository = TasksRepository();
@@ -15,17 +15,17 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          ChangeNotifierProvider<TasksData>(
-            create: (_) => TasksData(
+          ChangeNotifierProvider<TasksDataService>(
+            create: (_) => TasksDataService(
               tasksRepo: _repository,
               categoryRepo: _catRepository,
             ),
           ),
-          ChangeNotifierProvider<SettingsData>(
-            create: (_) => SettingsData(),
+          ChangeNotifierProvider<SettingsDataService>(
+            create: (_) => SettingsDataService(),
           )
         ],
-        child: Consumer<SettingsData>(
+        child: Consumer<SettingsDataService>(
           builder: (_, settings, child) {
             return MaterialApp(
               title: 'Desk Focus',

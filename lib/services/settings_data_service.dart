@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-class SettingsData extends ChangeNotifier {
+class SettingsDataService extends ChangeNotifier {
   bool _darkMode = false;
   String _selectedPage;
 

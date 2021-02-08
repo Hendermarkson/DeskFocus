@@ -4,11 +4,11 @@ import 'package:desk_focus/data/repositories/task_category_repository.dart';
 import 'package:desk_focus/data/repositories/tasks_repository.dart';
 import 'package:desk_focus/enums/loading_state.dart';
 import 'package:flutter/material.dart';
-import 'base_data.dart';
-import 'entities/task.dart';
-import 'entities/task_category.dart';
+import 'base_data_service.dart';
+import '../models/entities/task.dart';
+import '../models/entities/task_category.dart';
 
-class TasksData extends ChangeNotifier implements BaseData {
+class TasksDataService extends ChangeNotifier implements BaseDataService {
   List<Task> _tasks = [];
   List<TaskCategory> _categories = [];
 
@@ -34,7 +34,7 @@ class TasksData extends ChangeNotifier implements BaseData {
   @override
   LoadingState state;
 
-  TasksData({@required this.tasksRepo, @required this.categoryRepo}) {
+  TasksDataService({@required this.tasksRepo, @required this.categoryRepo}) {
     _initData();
   }
 

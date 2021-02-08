@@ -1,4 +1,4 @@
-import 'package:desk_focus/models/settings_data.dart';
+import 'package:desk_focus/services/settings_data_service.dart';
 import 'package:desk_focus/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +11,7 @@ class SettingsScreen extends StatelessWidget {
         title: Text('Settings'),
       ),
       drawer: AppDrawer(),
-      body: Consumer<SettingsData>(
+      body: Consumer<SettingsDataService>(
         builder: (_, settings, child) => Container(
           child: ListView(
             children: [
