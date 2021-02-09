@@ -5,10 +5,11 @@ import 'package:sqflite/sqflite.dart';
 
 const taskTable = 'Tasks';
 const taskCategoryTable = 'TaskCategories';
-
+const appSettingsTable = 'AppSettings';
 const initScripts = [
   'CREATE TABLE $taskTable(id TEXT PRIMARY KEY, name TEXT, isFinished INTEGER, finishedDateTime TEXT, categoryId INTEGER REFERENCES $taskCategoryTable(id))',
   'CREATE TABLE $taskCategoryTable(id INTEGER PRIMARY KEY, name TEXT, color TEXT, icon TEXT)',
+  'CREATE TABLE $appSettingsTable(id INTEGER PRIMARY KEY, name TEXT, value TEXT)',
   'INSERT INTO $taskCategoryTable (name, color, icon) VALUES (\'None\',\'0x00000000\', null), (\'Personal\',\'0xFF136EF2\', \'account_circle\'),(\'Work\',\'0xFFF21336\', \'work\')'
 ];
 
