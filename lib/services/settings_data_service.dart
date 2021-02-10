@@ -12,7 +12,7 @@ const String sDarkModeEnabled = 'darkModeEnabled';
 class SettingsDataService extends ChangeNotifier implements BaseDataService {
   final AppSettingsRepository repository;
 
-  List<AppSetting> _appSettings;
+  List<AppSetting> _appSettings = [];
   String _selectedPage;
 
   SettingsDataService({@required this.repository}) {
