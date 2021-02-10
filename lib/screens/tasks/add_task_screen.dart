@@ -24,12 +24,6 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
         .map((e) => DropdownMenuItem(value: e.id, child: Text(e.name)))
         .toList();
     return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(24.0),
-          topRight: Radius.circular(24.0),
-        ),
-      ),
       padding: EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -43,6 +37,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             ),
           ),
           TextField(
+            decoration: InputDecoration(
+              labelText: 'Name',
+            ),
             autofocus: true,
             textAlign: TextAlign.center,
             onChanged: (value) {
@@ -52,7 +49,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
           SizedBox(
             height: 20,
           ),
-          DropdownButton(
+          DropdownButtonFormField(
+            decoration: InputDecoration(
+              labelText: 'Category',
+            ),
             value: taskCategoryId ?? categorySelectItems.first.value,
             items: categorySelectItems,
             onChanged: (value) {

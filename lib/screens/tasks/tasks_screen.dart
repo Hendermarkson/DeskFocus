@@ -31,6 +31,9 @@ class _TasksScreenState extends State<TasksScreen> {
             child: Icon(Icons.add),
             onPressed: () {
               showModalBottomSheet(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16.0),
+                ),
                 context: context,
                 builder: (_) => SingleChildScrollView(
                   child: Container(
