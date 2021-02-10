@@ -2,7 +2,7 @@ import 'package:desk_focus/enums/loading_state.dart';
 import 'package:desk_focus/models/entities/task.dart';
 import 'package:desk_focus/services/tasks_data_service.dart';
 import 'package:desk_focus/screens/tasks/add_task_screen.dart';
-import 'package:desk_focus/widgets/app_drawer.dart';
+import 'package:desk_focus/widgets/drawer/app_drawer.dart';
 import 'package:desk_focus/widgets/error_indicator.dart';
 import 'package:desk_focus/widgets/loading_indicator.dart';
 import 'package:desk_focus/widgets/task_summary.dart';

@@ -1,8 +1,10 @@
 import 'package:desk_focus/services/settings_data_service.dart';
+import 'app_drawer_header.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../routes.dart';
+import '../../routes.dart';
+import 'drawer_item.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
@@ -12,9 +14,7 @@ class AppDrawer extends StatelessWidget {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            DrawerHeader(
-              child: Text('Desk Focus'),
-            ),
+            AppDrawerHeader(),
             DrawerItem(
               icon: Icons.check_box,
               title: 'Tasks',
@@ -30,34 +30,6 @@ class AppDrawer extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class DrawerItem extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final String route;
-  final SettingsDataService settings;
-  const DrawerItem({
-    Key key,
-    this.icon,
-    this.title,
-    this.route,
-    this.settings,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      selected: settings.selectedPage == route,
-      leading: Icon(this.icon),
-      title: Text(this.title),
-      onTap: () {
-        Navigator.pop(context);
-        Navigator.pushReplacementNamed(context, route);
-        settings.setSelectedPage(route);
-      },
     );
   }
 }
