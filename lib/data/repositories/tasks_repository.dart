@@ -1,8 +1,8 @@
-import 'package:desk_focus/data/database/dao/tasks_db_dao.dart';
+import 'package:desk_focus/data/database/dao/tasks_dao.dart';
 import 'package:desk_focus/models/entities/task.dart';
 
 class TasksRepository {
-  final _dbDao = TasksDbDao();
+  final _dbDao = TasksDao();
 
   Future addTask(Task task) => _dbDao.addTask(task);
 

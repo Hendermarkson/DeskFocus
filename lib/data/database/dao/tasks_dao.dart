@@ -2,8 +2,8 @@ import 'package:desk_focus/data/database/dao/base_dao.dart';
 import 'package:desk_focus/data/database/database.dart';
 import 'package:desk_focus/models/entities/task.dart';
 
-class TasksDbDao extends BaseDao {
-  TasksDbDao() : super(taskTable);
+class TasksDao extends BaseDao {
+  TasksDao() : super(taskTable);
 
   Future<int> addTask(Task task) async {
     return await create(task.toJson());

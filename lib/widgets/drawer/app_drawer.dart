@@ -2,7 +2,6 @@ import 'package:desk_focus/services/settings_data_service.dart';
 import 'app_drawer_header.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../routes.dart';
 import 'drawer_item.dart';
 
@@ -19,6 +18,12 @@ class AppDrawer extends StatelessWidget {
               icon: Icons.check_box,
               title: 'Tasks',
               route: Routes.tasks,
+              settings: settings,
+            ),
+            DrawerItem(
+              icon: Icons.category,
+              title: 'Categories',
+              route: Routes.categories,
               settings: settings,
             ),
             DrawerItem(

@@ -3,10 +3,10 @@ import 'package:desk_focus/models/entities/app_settings.dart';
 
 import '../database.dart';
 
-class AppSettingsDbDao extends BaseDao {
+class AppSettingsDao extends BaseDao {
   final dbProvider = DBProvider.provider;
 
-  AppSettingsDbDao() : super(appSettingsTable);
+  AppSettingsDao() : super(appSettingsTable);
 
   Future<int> addAppSetting(AppSetting appSetting) async {
     return await create(appSetting.toJson());
