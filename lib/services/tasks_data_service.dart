@@ -1,54 +1,48 @@
 import 'dart:collection';
 
-import 'package:desk_focus/data/repositories/task_category_repository.dart';
 import 'package:desk_focus/data/repositories/tasks_repository.dart';
 import 'package:desk_focus/enums/loading_state.dart';
+import 'package:desk_focus/models/entities/task_category.dart';
+import 'package:desk_focus/services/categories_data_service.dart';
 import 'package:flutter/material.dart';
 import 'base_data_service.dart';
 import '../models/entities/task.dart';
-import '../models/entities/task_category.dart';
 
 class TasksDataService extends ChangeNotifier implements BaseDataService {
   List<Task> _tasks = [];
-  List<TaskCategory> _categories = [];
 
   final TasksRepository tasksRepo;
-  final TaskCategoryRepository categoryRepo;
-
-  UnmodifiableListView<TaskCategory> get categories =>
-      UnmodifiableListView(_categories);
+  final CategoriesDataService categoriesDataService;
 
   UnmodifiableListView<Task> get tasks {
     var tasksWithCategories = _tasks;
-    if (_categories.isNotEmpty) {
-      tasksWithCategories = _tasks.map((t) {
-        var category = _categories.firstWhere((x) => x.id == t.categoryId,
-            orElse: () => null);
-        return t.copyWith(category: category);
-      }).toList();
-    }
+    var categories = _getCategories();
+    tasksWithCategories = _tasks.map((t) {
+      var category = categories.firstWhere((x) => x.id == t.categoryId,
+          orElse: () => null);
+      return t.copyWith(category: category);
+    }).toList();
 
     return UnmodifiableListView(tasksWithCategories);
+  }
+
+  List<TaskCategory> _getCategories() {
+    if (categoriesDataService == null) {
+      return [];
+    }
+    return categoriesDataService.categories;
   }
 
   @override
   LoadingState state;
 
-  TasksDataService({@required this.tasksRepo, @required this.categoryRepo}) {
+  TasksDataService(
+      {@required this.tasksRepo, @required this.categoriesDataService}) {
     _initData();
   }
 
   _initData() async {
-    state = LoadingState.Loading;
-    try {
-      _tasks = await tasksRepo.getTasks();
-      _categories = await categoryRepo.getTaskCategories();
-      state = LoadingState.Success;
-    } catch (e) {
-      print(e);
-      state = LoadingState.Error;
-    }
-    notifyListeners();
+    await _refreshTasks();
   }
 
   _refreshTasks() async {

@@ -1,5 +1,5 @@
 import 'package:desk_focus/models/entities/task.dart';
-import 'package:desk_focus/services/tasks_data_service.dart';
+import 'package:desk_focus/services/categories_data_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +19,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   @override
   Widget build(BuildContext context) {
     final categories =
-        Provider.of<TasksDataService>(context, listen: false).categories;
+        Provider.of<CategoriesDataService>(context, listen: false).categories;
     final categorySelectItems = categories
         .map((e) => DropdownMenuItem(value: e.id, child: Text(e.name)))
         .toList();

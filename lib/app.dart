@@ -2,6 +2,7 @@ import 'package:desk_focus/app_theme.dart';
 import 'package:desk_focus/data/repositories/app_settings_repository.dart';
 import 'package:desk_focus/data/repositories/task_category_repository.dart';
 import 'package:desk_focus/data/repositories/tasks_repository.dart';
+import 'package:desk_focus/services/categories_data_service.dart';
 import 'package:desk_focus/services/settings_data_service.dart';
 import 'package:desk_focus/routes.dart';
 import 'package:flutter/material.dart';
@@ -17,10 +18,17 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
-          ChangeNotifierProvider<TasksDataService>(
+          ChangeNotifierProvider<CategoriesDataService>(
+            create: (_) => CategoriesDataService(categoryRepo: _catRepository),
+          ),
+          ChangeNotifierProxyProvider<CategoriesDataService, TasksDataService>(
             create: (_) => TasksDataService(
               tasksRepo: _repository,
-              categoryRepo: _catRepository,
+              categoriesDataService: null,
+            ),
+            update: (_, catService, taskService) => TasksDataService(
+              tasksRepo: _repository,
+              categoriesDataService: catService,
             ),
           ),
           ChangeNotifierProvider<SettingsDataService>(
