@@ -1,4 +1,4 @@
-import 'package:desk_focus/data/database/tasks_db_dao.dart';
+import 'package:desk_focus/data/database/dao/tasks_db_dao.dart';
 import 'package:desk_focus/models/entities/task.dart';
 
 class TasksRepository {

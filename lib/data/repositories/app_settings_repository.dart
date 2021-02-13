@@ -1,4 +1,4 @@
-import 'package:desk_focus/data/database/app_settings_db_dao.dart';
+import 'package:desk_focus/data/database/dao/app_settings_db_dao.dart';
 import 'package:desk_focus/models/entities/app_settings.dart';
 
 class AppSettingsRepository {
