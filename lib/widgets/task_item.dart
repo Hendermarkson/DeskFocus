@@ -1,27 +1,13 @@
 import 'package:desk_focus/models/entities/task.dart';
+import 'package:desk_focus/utils/category-icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import '../constants.dart';
 
 class TaskItem extends StatelessWidget {
   final Task task;
   final Function toggleState;
   final Function onDelete;
   TaskItem({this.task, this.toggleState, this.onDelete});
-
-  Icon getCategoryIcon() {
-    IconData icon = Icons.lens_outlined;
-    int colorCode = 0x3F000000;
-    if (task.category != null) {
-      icon = iconList[task.category.icon] ?? icon;
-      colorCode = int.tryParse(task.category.color) ?? colorCode;
-    }
-
-    return Icon(
-      icon,
-      color: Color(colorCode),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +39,7 @@ class TaskItem extends StatelessWidget {
               bottom: 4.0,
             ),
             title: Text(task.name ?? task.id, style: TextStyle()),
-            leading: getCategoryIcon()),
+            leading: getCategoryIcon(task.category)),
       ),
     );
   }

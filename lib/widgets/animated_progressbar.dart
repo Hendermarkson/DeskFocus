@@ -18,7 +18,7 @@ class _AnimatedProgressBarState extends State<AnimatedProgressBar>
   void initState() {
     super.initState();
     _controller = AnimationController(
-        duration: const Duration(milliseconds: 500), vsync: this);
+        duration: const Duration(milliseconds: 300), vsync: this);
     _tween = Tween(begin: 0, end: widget.progress);
     _animation = _tween.animate(_controller);
     _controller.forward();
