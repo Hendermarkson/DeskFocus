@@ -12,7 +12,7 @@ class CategoriesDataService extends ChangeNotifier implements BaseDataService {
   final TaskCategoryRepository categoryRepo;
 
   CategoriesDataService({this.categoryRepo}) {
-    _initData();
+    _initialize();
   }
 
   UnmodifiableListView<TaskCategory> get categories =>
@@ -21,8 +21,27 @@ class CategoriesDataService extends ChangeNotifier implements BaseDataService {
   @override
   LoadingState state;
 
-  _initData() async {
-    await _refreshCategories();
+  _initialize() async {
+    try {
+      await _refreshCategories();
+    } on Exception catch (e) {
+      print(e);
+    }
+  }
+
+  add(TaskCategory category) {
+    categoryRepo.addtaskCategory(category);
+    _refreshCategories();
+  }
+
+  update(TaskCategory category) {
+    categoryRepo.updateTaskCategory(category);
+    _refreshCategories();
+  }
+
+  delete(int id) {
+    categoryRepo.deleteTaskCategory(id);
+    _refreshCategories();
   }
 
   _refreshCategories() async {

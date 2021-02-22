@@ -38,11 +38,15 @@ class TasksDataService extends ChangeNotifier implements BaseDataService {
 
   TasksDataService(
       {@required this.tasksRepo, @required this.categoriesDataService}) {
-    _initData();
+    _initialize();
   }
 
-  _initData() async {
-    await _refreshTasks();
+  _initialize() async {
+    try {
+      await _refreshTasks();
+    } on Exception catch (e) {
+      print(e);
+    }
   }
 
   _refreshTasks() async {

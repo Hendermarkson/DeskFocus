@@ -1,5 +1,6 @@
 import 'package:desk_focus/enums/loading_state.dart';
 import 'package:desk_focus/models/entities/task.dart';
+import 'package:desk_focus/screens/categories/add_category_screen.dart';
 import 'package:desk_focus/services/categories_data_service.dart';
 import 'package:desk_focus/services/tasks_data_service.dart';
 import 'package:desk_focus/utils/category-icon.dart';
@@ -23,6 +24,31 @@ class CategoriesScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Categories'),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {
+          showModalBottomSheet(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16.0),
+            ),
+            context: context,
+            builder: (_) => SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom,
+                ),
+                child: AddCategoryScreen(
+                  onAdd: (category) {
+                    Provider.of<CategoriesDataService>(context, listen: false)
+                        .add(category);
+                  },
+                ),
+              ),
+            ),
+            isScrollControlled: true,
+          );
+        },
       ),
       drawer: AppDrawer(),
       body: Consumer2<CategoriesDataService, TasksDataService>(
