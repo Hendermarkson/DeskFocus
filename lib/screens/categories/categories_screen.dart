@@ -9,6 +9,7 @@ import 'package:desk_focus/widgets/drawer/app_drawer.dart';
 import 'package:desk_focus/widgets/error_indicator.dart';
 import 'package:desk_focus/widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 
 class CategoriesScreen extends StatelessWidget {
@@ -77,26 +78,43 @@ class CategoriesScreen extends StatelessWidget {
                   final noTasks =
                       categoryTasks == null || categoryTasks.isEmpty;
                   return Card(
-                    child: Column(
-                      children: [
-                        ListTile(
-                            leading: CircleAvatar(
-                              backgroundColor: Colors.transparent,
-                              child: getCategoryIcon(category),
-                            ),
-                            title: Text(category.name),
-                            subtitle: noTasks
-                                ? Text('No tasks defined')
-                                : Text(
-                                    '${finishedTasks.length} / ${categoryTasks.length} tasks'),
-                            key: Key(
-                              category.id.toString(),
-                            )),
-                        AnimatedProgressBar(
-                          progress: getProgress(
-                              finishedTasks.length, categoryTasks.length),
+                    child: Slidable(
+                      key: Key('category_${category.id}'),
+                      actionPane: SlidableDrawerActionPane(),
+                      actionExtentRatio: 0.25,
+                      actions: [],
+                      secondaryActions: [
+                        IconSlideAction(
+                          color: Colors.red,
+                          onTap: () {
+                            Provider.of<CategoriesDataService>(context,
+                                    listen: false)
+                                .delete(category.id);
+                          },
+                          icon: Icons.delete,
                         )
                       ],
+                      child: Column(
+                        children: [
+                          ListTile(
+                              leading: CircleAvatar(
+                                backgroundColor: Colors.transparent,
+                                child: getCategoryIcon(category),
+                              ),
+                              title: Text(category.name),
+                              subtitle: noTasks
+                                  ? Text('No tasks defined')
+                                  : Text(
+                                      '${finishedTasks.length} / ${categoryTasks.length} tasks'),
+                              key: Key(
+                                category.id.toString(),
+                              )),
+                          AnimatedProgressBar(
+                            progress: getProgress(
+                                finishedTasks.length, categoryTasks.length),
+                          )
+                        ],
+                      ),
                     ),
                   );
                 },

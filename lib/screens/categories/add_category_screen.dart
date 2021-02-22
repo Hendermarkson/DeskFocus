@@ -78,7 +78,6 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
             value: selectedcColor,
             items: colorSelectItems,
             onChanged: (value) {
-              print(value);
               selectedcColor = value;
             },
           ),
@@ -93,7 +92,6 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
                 icon: selectedIcon,
               ));
 
-              print(selectedcColor);
               Navigator.pop(context);
             },
             child: Text("ADD"),
