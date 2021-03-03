@@ -1,9 +1,10 @@
+import 'package:desk_focus/data/base_app_settings_dao.dart';
 import 'package:desk_focus/data/database/dao/base_dao.dart';
 import 'package:desk_focus/models/entities/app_settings.dart';
 
 import '../database.dart';
 
-class AppSettingsDao extends BaseDao {
+class AppSettingsDao extends BaseDao implements BaseAppSettingsDao {
   final dbProvider = DBProvider.provider;
 
   AppSettingsDao() : super(appSettingsTable);
